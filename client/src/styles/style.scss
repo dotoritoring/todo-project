@@ -1,0 +1,13 @@
+main {
+  .ListContainer {
+    .TodoList {
+      border: 2px dashed rgb(233, 71, 22);
+      color: rgb(8, 8, 8);
+      margin-bottom: 10px;
+    }
+    .DoneList {
+      border: 2px dashed rgb(111, 71, 204);
+      color: rgb(55, 66, 226);
+    }
+  }
+}
