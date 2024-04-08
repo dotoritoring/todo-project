@@ -75,7 +75,7 @@ export function todoReducer(state = initialState, action: Action) {
           if (li.id === action.id) {
             return {
               ...li,
-              done: true, // 기존 요소를 그대로 둔 후, done 속성만 true로 변경
+              done: !li.done, // 기존 요소를 그대로 둔 후, done 속성만 true로 변경
             };
           } else {
             return li;

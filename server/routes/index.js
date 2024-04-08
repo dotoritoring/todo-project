@@ -15,7 +15,9 @@ router.post("/todo", controller.postTodo);
 
 // PATCH /api-server/todo/:todoId
 // 특정 todo의 done 값 수정 (할일 -> 다한일) + (다한일 -> 할일)
+router.patch("/todo/:todoId", controller.patchTodo);
 
 // DELETE /api-server/todo/:todoId
 // 특정 todo 삭제
+router.delete("/todo/:todoId", controller.deleteTodo);
 module.exports = router;

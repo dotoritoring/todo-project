@@ -1,3 +1,4 @@
+const { where } = require("sequelize");
 const { Todo } = require("../models");
 
 // test용 api
@@ -16,7 +17,7 @@ exports.getTodos = async (req, res) => {
     res.json(todoAll);
   } catch (err) {
     console.log("server error");
-    res.status(500).send("SERVER ERROR!!, 관리자에게 문의하새요");
+    res.status(500).send("SERVER ERROR!!, 관리자에게 문의하세요");
   }
 };
 
@@ -29,13 +30,43 @@ done: 모델 정의시 false(0)으로 defaultValue로 설정해두었기 때문�
 }
   */
   const { text } = req.body;
-  await Todo.create({
-    text,
-  });
-  res.send({ isSuccess: true });
   try {
+    await Todo.create({
+      text,
+    });
+    res.send({ isSuccess: true });
   } catch (err) {
     console.log("server error");
-    res.status(500).send("SERVER ERROR!!, 관리자에게 문의하새요");
+    res.status(500).send("SERVER ERROR!!, 관리자에게 문의하세요");
+  }
+};
+
+// PATCH /api-server/todo/:todoId
+exports.patchTodo = async (req, res) => {
+  const { todoId } = req.params;
+  try {
+    const todo = await Todo.findByPk(todoId); // todoId를 pk로 갖는 데이터 조회
+    console.log("============", !todo.done);
+    await todo.update({ done: !todo.done }); // 위에서 조회한 todo를 바로 update
+    res.send({ isSuccess: true });
+  } catch (err) {
+    console.log("server error");
+    res.status(500).send("SERVER ERROR!!, 관리자에게 문의하세요");
+  }
+};
+
+// DELETE /api-server/todo/:todoId
+exports.deleteTodo = async (req, res) => {
+  const { todoId } = req.params;
+  try {
+    await Todo.destroy({
+      where: {
+        id: todoId,
+      },
+    });
+    res.send({ isSuccess: true });
+  } catch (err) {
+    console.log("server error");
+    res.status(500).send("SERVER ERROR!!, 관리자에게 문의하세요");
   }
 };
